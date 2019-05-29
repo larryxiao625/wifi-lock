@@ -47,5 +47,9 @@
         </view>
     </view>
 
+<modal hidden="{{hiddenmodalput}}" title="请输入用户信息" confirm-text="提交" cancel-text="重置" bindcancel="cancel" bindconfirm="confirm">
+    <input type='text'placeholder="请输入用户名" bindblur='name' data-name='name' auto-focus/>
+    <input type='text'placeholder="请输入密码" bindblur='pwd' data-name='pwd' auto-focus/>
+</modal>
     <button class="button" type="primary" plain="true" bindtap="connectBluetooth">{{connectBleName}}</button>
 </view>

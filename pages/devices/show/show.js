@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hiddenmodalput:true,
     name: "",
     oriDeviceId: "",
     connectedId: "",
@@ -23,7 +24,9 @@ Page({
     code: "",
     name: "",
     lastDate: "",
-    turnOff: false
+    turnOff: false,
+    setName: "",
+    setPwd: "",
   },
 
   /**
@@ -253,68 +256,37 @@ Page({
 
   settingICCard: function () {
     let that = this
-    if (that.data.connectedId==that.data.oriDeviceId) {
-      let cmd = []
-      let params = "a01400" + that.data.code + "030e" + Tls.currentTime()
-      params = params + md5(app.globalData.salt + params).slice(0,16)
-      params.match(/[\da-f]{2}/gi).map(function (h) {
-        cmd.push(parseInt(h, 16))
-      });
-
-      let sum = 0
-      for (var i=0;i<cmd.length;i++) {
-        sum = sum + cmd[i]
-      }
-      cmd.push(sum&0xff)
-      let cmdArray = new Uint8Array(cmd);
-      setTimeout(() => {
-        that.writeArray(cmdArray)
-      }, 300)
-      wx.showToast({
-        title: '正在发送指令...',
-        icon: 'loading',
-        duration: 2000
-      })
-    } else {
-      wx.showToast({
-        title: '添加用户成功！',
-        icon: 'none',
-        duration: 2000
-      })
-    }
+    var name;
+    var pwd;
+    that.setData({
+      hiddenmodalput: false
+    })
   },
 
   bleOpenDoor: function () {
     let that = this
-    if (that.data.connectedId==that.data.oriDeviceId) {
-      let cmd = []
-      let params = "a01400" + that.data.code + "040e" + Tls.currentTime()
-      params = params + md5(app.globalData.salt + params).slice(0,16)
-      params.match(/[\da-f]{2}/gi).map(function (h) {
-        cmd.push(parseInt(h, 16))
-      });
-
-      let sum = 0
-      for (var i=0;i<cmd.length;i++) {
-        sum = sum + cmd[i]
+    wx.request({
+      url: 'https://www.happydoudou.xyz/public/index.php/lock/open',
+      data:{
+        openid: getApp().globalData.openid
+      },
+      header:{
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      success(res){
+        if(res.data==0){
+          wx.showToast({
+            title: '开锁成功',
+          })
+        }else{
+          wx.showToast({
+            title: '开锁失败',
+            image: "../../../images/warn.png"
+          })
+        }
       }
-      cmd.push(sum&0xff)
-      let cmdArray = new Uint8Array(cmd);
-      setTimeout(() => {
-        that.writeArray(cmdArray)
-      }, 300)
-      wx.showToast({
-        title: '正在发送指令...',
-        icon: 'loading',
-        duration: 2000
-      })
-    } else {
-      wx.showToast({
-        title: '已开锁！',
-        icon: 'none',
-        duration: 2000
-      })
-    }
+    })
   },
 
   connectBluetooth: function () {
@@ -410,8 +382,46 @@ Page({
       }
     }
   },
-
-
+  name: function(name){
+    this.setData({
+      setName: name.detail.value
+    })
+  },
+  pwd:function(pwd){
+    this.setData({
+      setPwd: pwd.detail.value
+    })
+  },
+  confirm: function(event){
+    var that=this;
+    wx.request({
+      url: 'https://www.happydoudou.xyz/public/index.php/User/add',
+      method: "POST",
+      header:{
+        'content-type': "application/x-www-form-urlencoded"
+      },
+      data:{
+        name: that.data.setName,
+        pwd: that.data.setPwd
+      },
+      success: res=>{
+        wx.showToast({
+          title: '添加成功',
+        })
+      },
+      fail: res=>{
+        wx.showToast({
+          title: '添加失败',
+          image: "../../../images/warn.png"
+        })
+      },
+      complete:res=>{
+        that.setData({
+          hiddenmodalput:true
+        })
+      }
+    })
+  },
   closeBleConnection: function () {
     let that = this
     wx.closeBLEConnection({

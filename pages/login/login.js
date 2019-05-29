@@ -19,30 +19,8 @@ Page({
   onLoad: function (options) {
     var tempThis=this;
     var app=getApp();
-    wx.request({
-      url:"",
-      header:{
-        'content-type': 'form-data'
-      },
-      data:{
-        openid:app.globalData.openid
-      },
-      success:res=>{
-        if(res==0){
-          tempThis.setData({
-            isScuess: true
-          })
-          wx.switchTab({
-            url: 'pages/devices/index/index',
-          })
-        }else{
-          wx.showToast({
-            title: '账户错误',
-            image: "../../images/warn.png"
-          })
-        }
-      }
-    })
+    
+
   },
 
   /**
@@ -100,7 +78,7 @@ Page({
     wx.request({
       url: "",
       header: {
-        'content-type': 'form-data'
+        'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
         name: e.detail.value.name,

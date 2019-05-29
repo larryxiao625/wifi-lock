@@ -4,6 +4,7 @@ App({
 
   },
   onLaunch: function (options) {
+    var that=this;
     this.globalData.sysinfo = wx.getSystemInfoSync();
     wx.cloud.init({
       env: "clock-saek9"
@@ -20,13 +21,49 @@ App({
           name: "login",
           data: {},
           success: res => {
-            console.log("login调用成功" + res.result.openid),
-              this.globalData.openid = res.result.openid
+            console.log("login调用成功" + res.result.openid);
+            this.globalData.openid = res.result.openid;
+            wx.request({
+              url: "https://www.happydoudou.xyz/public/index.php/User/login",
+              method: "POST",
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              data: {
+                name: "",
+                pwd: "",
+                openid: that.globalData.openid
+              },
+              success: res => {
+                console.log(res);
+                if (res.data == 0) {
+                  wx.switchTab({
+                    url: '../../pages/devices/index/index',
+                  })
+                }
+              }
+            })
           }
         }
       )
 
-    }
+    };
+    wx.startWifi({
+      success: res=>{
+        console.log(res);
+      },
+      fail: res=>{
+        console.log(res);
+      }
+    });
+    wx.getConnectedWifi({
+      success: res=>{
+        console.log(res);
+      },
+      fail: res=>{
+        console.log(res);
+      }
+    })
   },
   getModel: function () {
     return this.globalData.sysinfo["model"]
