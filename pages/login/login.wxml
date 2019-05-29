@@ -3,7 +3,7 @@
   <form bindsubmit='formSubmit'>
     <input wx:if="{{!isScuess}}" name='name' class='input-info' placeholder='{{name}}' />
     <input wx:if="{{!isScuess}}" name='stuId' class='input-info' placeholder='{{stuId}}' />
-    <button form-type='submit' wx:if="{{!isScuess}}" class="btn-area" plain='true' bindtap="bindButtonTap">登录</button>
+    <button form-type='submit' wx:if="{{!isScuess}}" class="btn-area" plain='true'>登录</button>
   </form>
   </view>
 </view>

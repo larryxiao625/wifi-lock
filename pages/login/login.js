@@ -17,6 +17,7 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    var tempThis=this;
     var app=getApp();
     wx.request({
       url:"",
@@ -28,11 +29,17 @@ Page({
       },
       success:res=>{
         if(res==0){
+          tempThis.setData({
+            isScuess: true
+          })
           wx.switchTab({
             url: 'pages/devices/index/index',
           })
         }else{
-
+          wx.showToast({
+            title: '账户错误',
+            image: "../../images/warn.png"
+          })
         }
       }
     })
@@ -86,7 +93,35 @@ Page({
   onShareAppMessage: function () {
 
   },
-  bindButtonTap: function(){
-    
+  formSubmit: function(e){
+    var tapThis=this;
+    var app = getApp();
+    console.log(e); 
+    wx.request({
+      url: "",
+      header: {
+        'content-type': 'form-data'
+      },
+      data: {
+        name: e.detail.value.name,
+        pwd: e.detail.value.stuId,
+        openid: app.globalData.openid
+      },
+      success: res => {
+        if (res == 0) {
+          tapThis.setData({
+            isScuess: true
+          })
+          wx.switchTab({
+            url: 'pages/devices/index/index',
+          })
+        } else {
+          wx.showToast({
+            title: '账户错误',
+            image: "../../images/warn.png"
+          })
+        }
+      }
+    })
   }
 })
