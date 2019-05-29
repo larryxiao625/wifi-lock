@@ -76,22 +76,24 @@ Page({
     var app = getApp();
     console.log(e); 
     wx.request({
-      url: "",
+      url: "https://www.happydoudou.xyz/public/index.php/User/login",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
+      method: "POST",
       data: {
         name: e.detail.value.name,
         pwd: e.detail.value.stuId,
         openid: app.globalData.openid
       },
       success: res => {
-        if (res == 0) {
+        console.log(res);
+        if (res.data == 0) {
           tapThis.setData({
             isScuess: true
           })
           wx.switchTab({
-            url: 'pages/devices/index/index',
+            url: '../../pages/devices/index/index',
           })
         } else {
           wx.showToast({

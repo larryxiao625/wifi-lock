@@ -7,9 +7,9 @@
       <text style='flex:1' >用户</text>
       <text style='flex:1'>时间</text>
     </view>
-    <view class='person' wx:for='{{showSelect}}'>
-      <text style='flex:1' >{{item.stuId}}</text>
-      <text style='flex:1'>{{item.count}}</text>
+    <view class='person' wx:for='{{showSlect}}'>
+      <text style='flex:1' >{{item.name}}</text>
+      <text style='flex:1'>{{item.time}}</text>
     </view>
   </view>
 </view>

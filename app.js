@@ -30,8 +30,6 @@ App({
                 'content-type': 'application/x-www-form-urlencoded'
               },
               data: {
-                name: "",
-                pwd: "",
                 openid: that.globalData.openid
               },
               success: res => {
@@ -59,6 +57,7 @@ App({
     wx.getConnectedWifi({
       success: res=>{
         console.log(res);
+        that.globalData.wifiSSID=res.wifi.SSID;
       },
       fail: res=>{
         console.log(res);

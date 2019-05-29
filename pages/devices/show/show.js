@@ -33,55 +33,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    if (typeof(options.bluetoothMac) == "undefined") {
-      that.setData({
-        name: options.name,
-        oriDeviceId: options.id,
-        code: options.code,
-        connectedId: wx.getStorageSync('connectedId'),
-        connectedDeviceId: wx.getStorageSync('connectedDeviceId')
-      })
-    } else {
-      that.setData({
-        name: options.name,
-        oriDeviceId: options.id,
-        code: options.code,
-        connectedId: wx.getStorageSync('connectedId'),
-        connectedDeviceId: wx.getStorageSync('connectedDeviceId'),
-        bluetoothMac: options.bluetoothMac,
-        connectBleName: wx.getStorageSync('connectedId')==options.id ? '已连接WIFI' : '请连接WIFI'
-      })
-      setTimeout(function () {
-        wx.onBLEConnectionStateChanged(function (res) {
-          //connected: false, errorCode: 10003, errorMsg: "The specified device has disconnected from us."
-          console.log(`device ${res.deviceId} state has changed, connected: ${res.connected}`)
-          that.setData({
-            connected: res.connected
-          })
-          if (res.connected) {
-          } else {
-            that.closeBleConnection();
-            wx.setStorageSync('connectedDeviceId', "")
-            wx.showModal({
-                title: '提示',
-                showCancel: true,
-                cancelText: "取消",
-                cancelColor: "#000",
-                confirmText: "确定",
-                confirmColor: "#0f0",
-                content: `云锁WIFI已断开，请按0♯重新开启WIFI连接`,
-                success: function (res) {
-                  console.log(res)
-                  if (res.confirm) {
-                    that.connectBluetooth();
-                  }
-                }
-            })
-          }
-        })
-      }, 1000)
-    }
+    var that=this;
   },
 
 
@@ -96,45 +48,25 @@ Page({
    */
   onShow: function (options) {
     let that = this;
-    setTimeout(function () {
-      if (that.data.connected && (typeof(that.data.bluetoothMac) != undefined) && wx.getStorageSync('notifyCharId').length>0) {
-        wx.notifyBLECharacteristicValueChange({
-          state: true,
-          deviceId: wx.getStorageSync('connectedDeviceId'),
-          serviceId: wx.getStorageSync('serviceId'),
-          characteristicId: wx.getStorageSync('notifyCharId'),
-          success() {
-            console.log('开始监听特征值')
-            wx.onBLECharacteristicValueChange(function (onNotityChangeRes) {
-              that.handleBLEMessage(Tls.ab2hex(onNotityChangeRes.value))
-            })
-          },
-          fail: (res) => {
-            if (res.errCode==10006 && !that.data.turnOff) {
-              that.closeBleConnection();
-              wx.setStorageSync('connectedDeviceId', "")
-              wx.showModal({
-                  title: '提示',
-                  showCancel: true,
-                  cancelText: "取消",
-                  cancelColor: "#000",
-                  confirmText: "确定",
-                  confirmColor: "#0f0",
-                  content: `云锁WIFI已断开，请按0♯重新开启WIFI连接`,
-                  success: function (res) {
-                    console.log(res)
-                    if (res.confirm) {
-                      that.connectBluetooth();
-                    }
-                  }
-              })
-            }
-            console.warn("监听特征值失败");
-            console.log(res);
-          }
+    wx.getConnectedWifi({
+      success:res=>{
+        that.setData({
+          connectBleName: res.wifi.SSID
         })
       }
-    }, 3000) // 5000)
+    })
+    setInterval(()=>{
+      wx.request({
+        url: 'https://www.happydoudou.xyz/public/index.php/lock/getLock',
+        success: res => {
+          console.log(res);
+          that.setData({
+            openDoorNum: res.data.length
+          })
+        }
+      })
+    },3000)
+
   },
 
   /**
@@ -265,6 +197,7 @@ Page({
 
   bleOpenDoor: function () {
     let that = this
+    console.log(getApp().globalData.openid);
     wx.request({
       url: 'https://www.happydoudou.xyz/public/index.php/lock/open',
       data:{
@@ -424,20 +357,6 @@ Page({
   },
   closeBleConnection: function () {
     let that = this
-    wx.closeBLEConnection({
-      deviceId: wx.getStorageSync('connectedDeviceId'),
-      success(res) {
-        that.setData({
-          connected: false,
-          bluetoothMac: "",
-          connectedId: "",
-          connectBleName: '请连接WIFI'
-        })
-        wx.getStorageSync('connectedId', "")
-        wx.getStorageSync('connectedDeviceId', "")
-      }
-    })
   }
-
 
 })

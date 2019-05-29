@@ -26,7 +26,16 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+    var that=this;
+    wx.request({
+      url: 'https://www.happydoudou.xyz/public/index.php/lock/getLock',
+      success: res => {
+        console.log(res.data);
+        that.setData({
+          showSlect: res.data
+        })
+      }
+    })
   },
 
   /**
