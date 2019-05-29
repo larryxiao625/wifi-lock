@@ -1,1 +1,33 @@
-/* pages/history/history.wxss */
+
+
+.top-bar-text{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.history_container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-basis: auto
+}
+
+.each-rank{
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column
+  
+}
+
+.each-person{
+  display:flex;
+  width:100%
+}
+
+.person{
+  display:flex;
+  width:100%
+}

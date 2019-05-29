@@ -21,13 +21,13 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.6",
+	"libVersion": "2.7.0",
 	"appid": "wx65a41430e5fb5085",
 	"projectname": "%E6%99%BA%E8%83%BD%E9%97%A8%E9%94%81",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-  "cloudfunctionRoot": "./functions/",
+	"cloudfunctionRoot": "functions/",
 	"isGameTourist": false,
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

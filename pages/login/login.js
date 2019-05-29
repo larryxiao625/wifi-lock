@@ -1,18 +1,41 @@
-// pages/devices/history.js
+// pages/login/login.js
 Page({
 
   /**
    * Page initial data
    */
   data: {
-
+    isScuess: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hasUserInfo: false,
+    userInfo: {},
+    name: "用户名",
+    stuId: "密码"
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    var app=getApp();
+    wx.request({
+      url:"",
+      header:{
+        'content-type': 'form-data'
+      },
+      data:{
+        openid:app.globalData.openid
+      },
+      success:res=>{
+        if(res==0){
+          wx.switchTab({
+            url: 'pages/devices/index/index',
+          })
+        }else{
 
+        }
+      }
+    })
   },
 
   /**
@@ -62,5 +85,8 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  bindButtonTap: function(){
+    
   }
 })

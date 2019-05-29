@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/devices/index/index",
     "pages/devices/show/show",
     "pages/more/index/index",
     "pages/bluetooth/index/index",
-    "pages/devices/history"
+    "pages/history/history"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -23,7 +24,7 @@
         "selectedIconPath": "images/device-select.png"
       },
       {
-        "pagePath": "pages/devices/history",
+        "pagePath": "pages/history/history",
         "text": "历史",
         "iconPath": "images/history.png",
         "selectedIconPath": "images/history-selected.png"

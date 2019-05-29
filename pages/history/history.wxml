@@ -1,2 +1,15 @@
-<!--pages/history/history.wxml-->
-<text>pages/history/history.wxml</text>
+<view class="history_container">
+  <scroll-view class="top-bar-nav" scroll-x="true">
+    <text class="top-bar-text">历史记录</text>
+  </scroll-view>
+  <view class='each-rank'>
+    <view class='each-person' >
+      <text style='flex:1' >用户</text>
+      <text style='flex:1'>时间</text>
+    </view>
+    <view class='person' wx:for='{{showSelect}}'>
+      <text style='flex:1' >{{item.stuId}}</text>
+      <text style='flex:1'>{{item.count}}</text>
+    </view>
+  </view>
+</view>
