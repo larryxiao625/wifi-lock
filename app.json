@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/devices/index/index",
+    "pages/devices/show/show",
+    "pages/more/index/index",
+    "pages/bluetooth/index/index",
+    "pages/devices/history"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WIFI测试",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#515151",
+    "selectedColor": "#1afa29",
+    "list": [
+      {
+        "pagePath": "pages/devices/index/index",
+        "text": "设备",
+        "iconPath": "images/device.png",
+        "selectedIconPath": "images/device-select.png"
+      },
+      {
+        "pagePath": "pages/devices/history",
+        "text": "历史",
+        "iconPath": "images/history.png",
+        "selectedIconPath": "images/history-selected.png"
+      },
+      {
+        "pagePath": "pages/more/index/index",
+        "text": "更多",
+        "iconPath": "images/more.png",
+        "selectedIconPath": "images/more-select.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
