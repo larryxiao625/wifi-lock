@@ -1,0 +1,42 @@
+.manage-container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.topBar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 80rpx;
+  width: 100vw;
+  background-color: #DCDCDC;
+}
+.topBar-text{
+  color: #000000;
+}
+.topMenu{
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start  
+}
+.user{
+  display:flex;
+  width:100%
+}
+.userInfo{
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column
+}
+.pwd-name{
+  width: 50%
+}
+.edit-button{
+  width: 50rpx;
+  height: 50rpx;
+}

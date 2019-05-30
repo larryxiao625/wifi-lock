@@ -5,7 +5,8 @@
     "pages/devices/show/show",
     "pages/more/index/index",
     "pages/bluetooth/index/index",
-    "pages/history/history"
+    "pages/history/history",
+    "pages/devices/manage/manage"
   ],
   "window": {
     "backgroundTextStyle": "light",

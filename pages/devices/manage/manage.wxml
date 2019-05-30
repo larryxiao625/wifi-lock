@@ -1,0 +1,16 @@
+<view class="manage-container">
+  <view class='topBar'>
+    <text class='topBar-text'>用户管理</text>
+  </view>
+  <view class='userInfo'>
+    <view class='topMenu'>
+      <text class='pwd-name'>用户名</text>
+      <text class='pwd-name'>密码</text>
+    </view>
+    <view class='user' wx:for='{{showSlect}}'>
+        <text style='flex:1' >{{item.name}}</text>
+        <text style='flex:1'>{{item.time}}</text>
+        <image class='edit-button' src='../../../images/edit.png'></image>
+    </view>
+  </view>
+</view>

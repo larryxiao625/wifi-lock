@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isAdmin: true,
     hiddenmodalput:true,
     name: "",
     oriDeviceId: "",
@@ -111,87 +112,24 @@ Page({
 
   settingFinger: function () {
     let that = this
-    if (that.data.connectedId==that.data.oriDeviceId) {
-      let cmd = []
-      let params = "a01400" + that.data.code + "010e" + Tls.currentTime()
-      params = params + md5(app.globalData.salt + params).slice(0,16)
-      params.match(/[\da-f]{2}/gi).map(function (h) {
-        cmd.push(parseInt(h, 16))
-      });
-
-      let sum = 0
-      for (var i=0;i<cmd.length;i++) {
-        sum = sum + cmd[i]
-      }
-      cmd.push(sum&0xff)
-      console.log(cmd)
-      let cmdArray = new Uint8Array(cmd);
-      setTimeout(() => {
-        that.writeArray(cmdArray)
-      }, 300)
-      wx.showToast({
-        title: '正在发送指令...',
-        icon: 'loading',
-        duration: 2000
-      })
-    } else {
-      wx.showToast({
-        title: '已开锁！',
-        icon: 'none',
-        duration: 2000
-      })
-    }
+    wx.showToast({
+      title: '请输入指纹',
+      image: "../../../images/warn.png"
+    })
   },
 
   settingPassword: function () {
     let that = this
-    if (that.data.connectedId==that.data.oriDeviceId) {
-      let cmd = []
-      let params = "a01700" + that.data.code + "0211"
-      let password = "123456"
-
-      params.match(/[\da-f]{2}/gi).map(function (h) {
-        cmd.push(parseInt(h, 16))
-      });
-         
-      password.match(/[\da-f]{2}/gi).map(function (j) {
-        cmd.push(parseInt(j, 10))
-      });
-
-      params = params + password + Tls.currentTime();
-      (Tls.currentTime() + md5(app.globalData.salt + params).slice(0,16)).match(/[\da-f]{2}/gi).map(function (k) {
-        cmd.push(parseInt(k, 16))
-      });
-
-      let sum = 0
-      for (var i=0;i<cmd.length;i++) {
-        sum = sum + cmd[i]
-      }
-      cmd.push(sum&0xff)
-      let cmdArray = new Uint8Array(cmd);
-      setTimeout(() => {
-        that.writeArray(cmdArray)
-      }, 1000)
-      wx.showToast({
-        title: '正在发送指令...',
-        icon: 'loading',
-        duration: 5000
-      })
-    } else {
-      wx.showToast({
-        title: '密码已设置成功！',
-        icon: 'none',
-        duration: 2000
-      })
-    }
+    wx.showToast({
+      title: '请设置密码',
+      image: "../../../images/warn.png"
+    })
   },
 
   settingICCard: function () {
     let that = this
-    var name;
-    var pwd;
-    that.setData({
-      hiddenmodalput: false
+    wx.navigateTo({
+      url: '../../../pages/devices/manage/manage',
     })
   },
 
@@ -357,6 +295,16 @@ Page({
   },
   closeBleConnection: function () {
     let that = this
-  }
+  },
+  cancel: function(){
+    this.setData({
+      hiddenmodalput: true
+    })
+  },
+  deleteUser: function(){
 
+  },
+  changePassword: function(){
+    
+  }
 })
