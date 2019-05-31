@@ -24,19 +24,44 @@
 }
 .user{
   display:flex;
-  width:100%
+  width:100%;
+  justify-content: flex-start
+
 }
 .userInfo{
   height: 100%;
   width: 100%;
   text-align: center;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
+}
+.user-info{
+  width: 40%
+}
+.edit-button{
+  margin-inline-start: 50rpx;
+  width: 20%
 }
 .pwd-name{
-  width: 50%
+  width: 40%
+}
+.user-change{
+  width: 20%
 }
 .edit-button{
   width: 50rpx;
   height: 50rpx;
+}
+/* 横着的分割View样式 */
+/*分割线样式*/
+.divLine{
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  background: #E0E3DA;
+  width: 100%;
+  height: 5rpx;
+}
+.delete-button{
+  background-color: red;
+  margin-top: 20rpx;
 }

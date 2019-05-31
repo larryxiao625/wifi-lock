@@ -6,11 +6,20 @@
     <view class='topMenu'>
       <text class='pwd-name'>用户名</text>
       <text class='pwd-name'>密码</text>
+      <text class='user-change'>修改</text>
     </view>
-    <view class='user' wx:for='{{showSlect}}'>
-        <text style='flex:1' >{{item.name}}</text>
-        <text style='flex:1'>{{item.time}}</text>
-        <image class='edit-button' src='../../../images/edit.png'></image>
+    <view  wx:for='{{user}}'>
+      <view class='user'>
+        <text class='user-info'>{{item.name}}</text>
+        <text class='user-info'>{{item.pwd}}</text>
+        <image class='edit-button' bindtap='editUserInfo' data-name='{{item}}' src='../../../images/edit.png'></image>
+      </view>
+        <view class="divLine"></view>
     </view>
   </view>
+      <modal hidden="{{hiddenmodalput}}" title="请输入用户信息" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+        <input type='text' placeholder="请输入修改密码" bindblur='pwd' data-name='pwd' auto-focus/>
+        <view class="divLine"></view>
+        <button class='delete-button' bindtap='deleteUser'>删除</button>
+    </modal>
 </view>
