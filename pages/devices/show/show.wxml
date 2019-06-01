@@ -61,5 +61,5 @@
         <input type='text' placeholder="请输入用户名" bindblur='name' data-name='name' auto-focus/>
         <input type='text' placeholder="请输入密码" bindblur='pwd' data-name='pwd' auto-focus/>
     </modal>
-        <button class="button" type="primary" plain="true" bindtap="connectBluetooth">{{connectBleName}}</button>
+        <button class="button" type="primary" plain="true">{{connectBleName}}</button>
 </view>

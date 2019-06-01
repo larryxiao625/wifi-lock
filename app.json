@@ -4,7 +4,7 @@
     "pages/devices/index/index",
     "pages/devices/show/show",
     "pages/more/index/index",
-    "pages/bluetooth/index/index",
+    "pages/wifi/index/index",
     "pages/history/history",
     "pages/devices/manage/manage"
   ],

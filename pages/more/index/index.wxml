@@ -40,11 +40,5 @@
                 </view>
             </view>
         </view>
-
-        <view class="weui-footer weui-footer_fixed-bottom">
-            <view class="weui-footer__links">
-            </view>
-            <view class="weui-footer__text">Copyright © 2018-{{year}} 图大</view>
-        </view>
     </view>
 </view>
