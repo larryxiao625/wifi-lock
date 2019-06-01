@@ -12,7 +12,7 @@
       <view class='user'>
         <text class='user-info'>{{item.name}}</text>
         <text class='user-info'>{{item.pwd}}</text>
-        <image class='edit-button' bindtap='editUserInfo' data-name='{{item}}' src='../../../images/edit.png'></image>
+        <image class='edit-button' bindtap='editUserInfo' data-name='{{index}}' src='../../../images/edit.png'></image>
       </view>
         <view class="divLine"></view>
     </view>

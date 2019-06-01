@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isOpen: true,
     isAdmin: true,
     hiddenmodalput:true,
     name: "",
@@ -66,7 +67,16 @@ Page({
           })
         }
       })
-    },3000)
+      wx.request({
+        url: 'https://www.happydoudou.xyz/public/index.php/lock/getLockStatus',
+        success: res=>{
+          console.log(res);
+          that.setData({
+            isOpen: res.data
+          })
+        }
+      })
+    },1000)
 
   },
 
@@ -139,7 +149,8 @@ Page({
     wx.request({
       url: 'https://www.happydoudou.xyz/public/index.php/lock/open',
       data:{
-        openid: getApp().globalData.openid
+        openid: getApp().globalData.openid,
+        wifi_name: that.data.connectBleName
       },
       header:{
         'content-type': 'application/x-www-form-urlencoded'
@@ -147,12 +158,21 @@ Page({
       method: 'POST',
       success(res){
         if(res.data==0){
+          if (that.data.isOpen == 0) {
+            that.setData({
+              isOpen:1
+            });
+          }else if(that.data.isOpen==1){
+            that.setData({
+              isOpen: 1
+            })
+          }
           wx.showToast({
-            title: '开锁成功',
+            title: '成功',
           })
         }else{
           wx.showToast({
-            title: '开锁失败',
+            title: '失败',
             image: "../../../images/warn.png"
           })
         }
@@ -291,6 +311,11 @@ Page({
           hiddenmodalput:true
         })
       }
+    })
+  },
+  addUser: function(){
+    this.setData({
+      hiddenmodalput:false
     })
   },
   closeBleConnection: function () {

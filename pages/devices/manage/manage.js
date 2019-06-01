@@ -77,9 +77,10 @@ Page({
   editUserInfo: function(event){
     var that=this;
     console.log(event);
+    console.log(event.target.dataset.name);
     that.setData({
       hiddenmodalput:false,
-      selectNum: event.target.dataset.name.id-1
+      selectNum: event.target.dataset.name
     });
     // changePwd(event.dataset.name.name,event.dataset.name.pwd,event.dataset.name.id-1,this);
   },
@@ -92,6 +93,9 @@ Page({
   confirm: function(event){
     var user = this.data.user;
     var that=this;
+    console.log(this.data.setPwd);
+    console.log(this.data.selectNum);
+    console.log(user[this.data.selectNum].pwd)
     user[this.data.selectNum].pwd = this.data.setPwd;
     console.log(this.data.user);
     console.log(this.data.user[this.data.selectNum].name);

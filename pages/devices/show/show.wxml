@@ -7,9 +7,11 @@
         <view class="weui-grid" bindtap="bleOpenDoor">
             <view class='weui-grid__bg'>
                 <view class="weui-grid__icon">
-                    <image src="/images/device/open.png" mode="scaleToFill" />
+                    <image wx:if="{{isOpen==1}}" src="/images/clock-open.png" mode="scaleToFill" />
+                    <image wx:if="{{isOpen==0}}" src="../../../images/clock.png" mode='scaleToFill'></image>
                 </view>
-                <text class="weui-grid__label">开门</text>
+                <text wx:if="{{isOpen==0}}" class="weui-grid__label">开门</text>
+                <text wx:if="{{isOpen==1}}" class="weui-grid__label">关门</text>
             </view>
         </view>
         <view class="weui-grid" data-type="1" data-name="指纹" bindtap="settingFinger">
@@ -36,6 +38,14 @@
                     <image src="/images/device/ic.jpg" mode="scaleToFill" />
                 </view>
                 <text class="weui-grid__label">用户管理</text>
+            </view>
+        </view>
+        <view class="weui-grid" data-type="3" data-name="IC卡" bindtap="addUser">
+            <view class='weui-grid__bg'>
+                <view class="weui-grid__icon">
+                    <image src="/images/device/ic.jpg" mode="scaleToFill" />
+                </view>
+                <text class="weui-grid__label">添加用户</text>
             </view>
         </view>
     </view>
