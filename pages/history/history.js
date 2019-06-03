@@ -27,6 +27,7 @@ Page({
    */
   onShow: function () {
     var that=this;
+  
     wx.request({
       url: 'https://www.happydoudou.xyz/public/index.php/lock/getLock',
       success: res => {

@@ -59,7 +59,7 @@ Page({
     })
     setInterval(()=>{
       wx.request({
-        url: 'https://www.happydoudou.xyz/public/index.php/lock/getLock',
+        url: 'https://www.happydoudou.xyz/public/index.php/lock/getLockTime',
         success: res => {
           console.log(res);
           that.setData({

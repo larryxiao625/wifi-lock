@@ -6,10 +6,13 @@
     <view class='each-person' >
       <text style='flex:1' >用户</text>
       <text style='flex:1'>时间</text>
+      <text style='flex:1'>类型</text>
     </view>
     <view class='person' wx:for='{{showSlect}}'>
       <text style='flex:1' >{{item.name}}</text>
       <text style='flex:1'>{{item.time}}</text>
+      <text style='flex:1' wx:if='{{item.action==0}}'>开锁</text>
+      <text style='flex:1' wx:if='{{item.action==1}}'>关锁</text>
     </view>
   </view>
 </view>
