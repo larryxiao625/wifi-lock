@@ -65,3 +65,35 @@ PAGES现有使用功能代码在**devices/index/**,**devices/manage/**,**devices
 
 #### history 
 开关门锁历史记录显示方法，在每次onShow第一次展示时从getLock获取数据，将开关门锁的历史信息存入data中，并在wxml中通过**wx:for**遍历获取的用户数据，根据信息中的action进行开关门锁的判断，若action为0则为开锁，action为1则为关锁
+
+
+## PHP相关文档
+config为PHP相关配置文件,application为PHP相关文件，函数文件皆在controller
+
+###CONTROLLER
+
+#### Lock.php
+为锁相关方法
+
+* open为门开锁方法，先判断是否传递openid，如果为openid，则从数据库中寻找此openid，记录为用户，如果未找到相关用户，则放回错误码1。否则寻找此时锁的状态，如果为0，则记录action为1和用户名，反之如此
+
+* getLock为获取锁时间方法，从数据库获取lock_time的表并放回
+
+* getLockTime则为获取锁开门次数的，从开锁记录表中获取action为0的数据并放回
+
+* getLockStatus，从数据库状态表中获取锁的状态，并放回
+
+* updateLock为更新锁相关信息的方法，获取前端post的wifi名字，并更新到数据库
+
+
+#### User.php
+
+* login为登录方法，获取前端post的用户名，密码和openid，如果有openid，则在数据库中进行匹配，若果数据库中有相关openid，则自动登录。如果无，则匹配用户名和密码，若登录成功，则将post的openid存入数据库，若登录失败，则回传失败的错误码
+
+* add为添加用户方法，获取前端post的用户名和密码，并存入数据库
+
+* changePwd为修改密码方法，获取前端post的用户名和新密码，如果数据库中有相关用户，则更新密码，如果无相关用户，则返回错误码
+
+* getAllUsers为获取所有用户的方法，从user表中获取所有的数据，并返回
+
+* del为删除用户的方法，根据前端post的用户名进行匹配，如果匹配到则删除相关用户，如果无则返回错误码
